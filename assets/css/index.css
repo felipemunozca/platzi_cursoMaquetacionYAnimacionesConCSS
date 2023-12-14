@@ -42,6 +42,59 @@ body {
     width: 100%;
 }
 
+/* N5.1: Se comienza a crear los estilos para la barra de navegación. 
+Se le debe asignar el nombre del area nav que se creo dentro del contenedor principal.
+*/
+.navbar {
+    background: lightpink;
+    grid-area: nav;
+}
+/* N5.2: Se utiliza flexbox para alinear el contenido del navbar uno al lado del otro. */
+.navbar__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 0 80px;
+
+    /* N5.5: Se llama a la animación de la barra de navegación.
+    El primer valor es cuantos segundos después se debe ejecutar, en este caso 4 segundos después, para que coincida con el termino de la animación de loader.Tendrá una duración de 1 segundo.
+    Y la aceleración sera de tipo ease-in-out
+    */
+    animation: 4.2s navbar 1s ease-in-out;
+}
+
+/* N5.4: Se crea la animación para que la barra de navegación aparezca y se desplace de arriba hacia abajo.
+En el momento cero, la barra estará en el eje Y sobre el contenido.
+En el momento del estado final, volverá a la posición original.
+*/
+@keyframes navbar {
+    0% {
+        transform: translateY(-200px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.navbar__content img {
+    width: 50px;
+}
+/* N5.3: Se utiliza flexbox para darle estilo a las etiquetas dentro de la lista <ul>.
+Se le quita el padding que trae por defecto el navegador y se le agrega un tamaño al <div> para separar los enlaces del menu. 
+*/
+.navbar__content ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+    padding: 0;
+    width: 450px;
+}
+.navbar__content ul li a {
+    color: var(--red);
+    font-weight: 300;
+    text-decoration: none;
+}
+
 /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
 .loader {
     background: pink;

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de maquetación y animaciones con CSS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
+
+        :root {
+            --yellow: #ffd602;
+            --red: #d5040a;
+            --blue: #036cb6;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+
+        }
+
+        .page {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .container {
+            position: absolute;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            grid-template-rows: 20% 50% 30%;
+            grid-template-areas:    "nav     aside"
+                                    "section aside"
+                                    "footer  aside";
+            height: 100%;
+            width: 100%;
+        }
+
+        /* N5.1: Se comienza a crear los estilos para la barra de navegación. 
+        Se le debe asignar el nombre del area nav que se creo dentro del contenedor principal.
+        */
+        .navbar {
+            background: lightpink;
+            grid-area: nav;
+        }
+        /* N5.2: Se utiliza flexbox para alinear el contenido del navbar uno al lado del otro. */
+        .navbar__content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0 0 0 80px;
+
+            /* N5.5: Se llama a la animación de la barra de navegación.
+            El primer valor es cuantos segundos después se debe ejecutar, en este caso 4 segundos después, para que coincida con el termino de la animación de loader.Tendrá una duración de 1 segundo.
+            Y la aceleración sera de tipo ease-in-out
+            */
+            animation: 4.2s navbar 1s ease-in-out;
+        }
+
+        /* N5.4: Se crea la animación para que la barra de navegación aparezca y se desplace de arriba hacia abajo.
+        En el momento cero, la barra estará en el eje Y sobre el contenido.
+        En el momento del estado final, volverá a la posición original.
+        */
+        @keyframes navbar {
+            0% {
+                transform: translateY(-200px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .navbar__content img {
+            width: 50px;
+        }
+        /* N5.3: Se utiliza flexbox para darle estilo a las etiquetas dentro de la lista <ul>.
+        Se le quita el padding que trae por defecto el navegador y se le agrega un tamaño al <div> para separar los enlaces del menu. 
+        */
+        .navbar__content ul {
+            display: flex;
+            justify-content: space-evenly;
+            list-style: none;
+            padding: 0;
+            width: 450px;
+        }
+        .navbar__content ul li a {
+            color: var(--red);
+            font-weight: 300;
+            text-decoration: none;
+        }
+
+        .loader {
+            background: pink;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 3;
+
+            animation: loader 4s linear forwards;
+        }
+
+        @keyframes loader {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            95% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loader div {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 10px;
+
+            transform: scale(0);
+
+            animation: scaling 4s ease-in-out infinite;
+        }
+
+        .loader div:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        .loader div:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        .loader div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes scaling {
+            0%, 100% {
+                transform: scale(0.2);
+            }
+            40% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="container">
+            <nav class="navbar">
+                <div class="navbar__content">
+                    <img src="https://i.ibb.co/MMmDPXN/lego.png" alt="logo">
+                    <ul>
+                        <li><a href="#">Exclusivos</a></li>
+                        <li><a href="#">Nuevos</a></li>
+                        <li><a href="#">Gift Card</a></li>
+                        <li><a href="#">Find a Store</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <section class="main-content">
+                <p>Diseña tu</p>
+                <h1>Súper Héroe!</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sequi dignissimos cumque laborum, nemo maxime consectetur obcaecati fuga consequuntur voluptatem similique, pariatur debitis omnis et! Perferendis architecto voluptatem tempora officia!</p>
+            </section>
+            <section class="side-content">
+                <p>Superman</p>
+                <img src="" alt="">
+                <div></div>
+            </section>
+            <section>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+            </section>
+        </section>
+
+        <section class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+
+        <section></section>
+    </div>
+</body>
+</html>
