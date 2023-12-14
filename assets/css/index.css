@@ -1,19 +1,45 @@
+/* N4.2: Se importa la fuente Lato desde google fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
+
+/* N4.1: Se crean variables con los colores a utilizar. */
+:root {
+    --yellow: #ffd602;
+    --red: #d5040a;
+    --blue: #036cb6;
+}
+
 body {
     height: 100vh;
     margin: 0;
     /* N3.2: evitar que los elementos se salgan de la pantalla. */
     overflow: hidden;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .page {
     /* N3.4: Se le agrega una posición relativa al contenedor de todo la pagina. */
     position: relative;
     height: 100vh;
+    width: 100%;
 }
 
 .container {
     position: absolute;
     z-index: 1;
+
+    /* N4.3: Se crean dos columnas de distinto ancho utilizando grid. */
+    display: grid;
+    grid-template-columns: 55% 45%;
+    /* N4.4: Se crean tris filas de distinto tamaño. */
+    grid-template-rows: 20% 50% 30%;
+    /* N4.5: Se crean nombres para las areas en las que se dividió el container. 
+    Los nombres pueden ser cualquiera, pero se recomienda que sean explicativos de lo que tendrán dentro como contenido. */
+    grid-template-areas:    "nav     aside"
+                            "section aside"
+                            "footer  aside";
+    height: 100%;
+    width: 100%;
 }
 
 /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */

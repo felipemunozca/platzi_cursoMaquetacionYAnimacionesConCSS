@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de maquetación y animaciones con CSS</title>
+    <style>
+        /* N4.2: Se importa la fuente Lato desde google fonts. */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
+
+        /* N4.1: Se crean variables con los colores a utilizar. */
+        :root {
+            --yellow: #ffd602;
+            --red: #d5040a;
+            --blue: #036cb6;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+
+        }
+
+        .page {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .container {
+            position: absolute;
+            z-index: 1;
+
+            /* N4.3: Se crean dos columnas de distinto ancho utilizando grid. */
+            display: grid;
+            grid-template-columns: 55% 45%;
+            /* N4.4: Se crean tris filas de distinto tamaño. */
+            grid-template-rows: 20% 50% 30%;
+            /* N4.5: Se crean nombres para las areas en las que se dividió el container. 
+            Los nombres pueden ser cualquiera, pero se recomienda que sean explicativos de lo que tendrán dentro como contenido. */
+            grid-template-areas:    "nav     aside"
+                                    "section aside"
+                                    "footer  aside";
+            height: 100%;
+            width: 100%;
+        }
+
+        .loader {
+            background: pink;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 3;
+
+            animation: loader 4s linear forwards;
+        }
+
+        @keyframes loader {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            95% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loader div {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 10px;
+
+            transform: scale(0);
+
+            animation: scaling 4s ease-in-out infinite;
+        }
+
+        .loader div:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        .loader div:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        .loader div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes scaling {
+            0%, 100% {
+                transform: scale(0.2);
+            }
+            40% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="container">
+            <nav class="navbar">
+                <div class="navbar__content">
+                    <img src="" alt="">
+                    <ul>
+                        <li><a href="#">Exclusivos</a></li>
+                        <li><a href="#">Nuevos</a></li>
+                        <li><a href="#">Gift Card</a></li>
+                        <li><a href="#">Find a Store</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <section class="main-content">
+                <p>Diseña tu</p>
+                <h1>Súper Héroe!</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sequi dignissimos cumque laborum, nemo maxime consectetur obcaecati fuga consequuntur voluptatem similique, pariatur debitis omnis et! Perferendis architecto voluptatem tempora officia!</p>
+            </section>
+            <section class="side-content">
+                <p>Superman</p>
+                <img src="" alt="">
+                <div></div>
+            </section>
+            <section>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+            </section>
+        </section>
+
+        <section class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+
+        <section></section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de maquetación y animaciones con CSS</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            /* N3.2: evitar que los elementos se salgan de la pantalla. */
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+
+        }
+
+        .page {
+            /* N3.4: Se le agrega una posición relativa al contenedor de todo la pagina. */
+            position: relative;
+            height: 100vh;
+        }
+
+        .container {
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
+        .loader {
+            background: pink;
+            width: 100%;
+            height: 100%;
+            /* N3.3: Centrar los elementos utilizando flexbox. */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* N3.5: Se agrega una posición absoluta al contenedor del loader ademas de un valor de z-index 3 para que al cargar la pagina este sobre el contenedor "page". */
+            position: absolute;
+            z-index: 3;
+
+            /* N3.7: Se asigna la animación que cree llamada loader.
+            Tendrá una duración de 4 segundos.
+            Sera de tipo lineal.
+            Y el contenedor quedará con los valores y estilos que le aplique el último keyframe de la ejecución de la animación. */
+            animation: loader 4s linear forwards;
+        }
+
+        /* N3.6: Se crea un keyframe donde se definirá la animación para hacer aparecer y desaparecer el fondo de color rosa.
+        Los tiempos de manipulación serán 3 momentos: 
+        En el punto 0% la opacidad sera de 1 y la visibilidad sera visible.
+        En el punto 95% las condiciones se mantienen iguales.
+        En el punto 100% casi al final, hacemos que el circulo desaparezca, que no tenga opacidad y se oculte.
+        */
+        @keyframes loader {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            95% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* N3.8: Se crean los estilos para los círculos que aparecerán en la pantalla de carga. 
+        Se le debe agregar un color.
+        Un tamaño de alto y ancho que sean iguales.
+        Un radio del 50% para que quede redondo.
+        Un margen para esperar los diferentes círculos.
+        */
+        .loader div {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 10px;
+
+            transform: scale(0);
+            /* N3.10: Se asigna la animación llamada scaling.
+            Tendrá una duración de 4 segundos (COMO RECOMENDACIÓN: que la duración sea la misma que la utilizada en el loader).
+            Sera de tipo ease-in-out es decir, comenzará lentamente, será más rápido en el medio de la animación y luego terminará lentamente.
+            Y la animación se repetirá de forma infinita hasta que se acabe el tiempo de duración. 
+            */
+            animation: scaling 4s ease-in-out infinite;
+        }
+
+        /* N3.11: Para animar uno a uno los círculos en vez de todos a la vez, se utiliza la propiedad nth-child para asignarle a cada hijo un tiempo en segundos en el que se debe ejecutar la animación. 
+        Si no se hace de este modo, todos los círculos se animan al mismo tiempo. 
+        */
+        .loader div:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        .loader div:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        .loader div:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        /* N3.9: Se crea la animación para agrandar y achicar los círculos aumentando y disminuyendo la escala. */
+        @keyframes scaling {
+            0%, 100% {
+                transform: scale(0.2);
+            }
+            40% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        /*** Ejemplo de animación hecho por un compañero. ***/
+        @keyframes scaling2 {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="container">
+            <nav class="navbar">
+                <div class="navbar__content">
+                    <img src="" alt="">
+                    <ul>
+                        <li><a href="#">Exclusivos</a></li>
+                        <li><a href="#">Nuevos</a></li>
+                        <li><a href="#">Gift Card</a></li>
+                        <li><a href="#">Find a Store</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <section class="main-content">
+                <p>Diseña tu</p>
+                <h1>Súper Héroe!</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sequi dignissimos cumque laborum, nemo maxime consectetur obcaecati fuga consequuntur voluptatem similique, pariatur debitis omnis et! Perferendis architecto voluptatem tempora officia!</p>
+            </section>
+            <section class="side-content">
+                <p>Superman</p>
+                <img src="" alt="">
+                <div></div>
+            </section>
+            <section>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+                <div>
+                    <img src="" alt="">
+                </div>
+            </section>
+        </section>
+
+        <section class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+
+        <section></section>
+    </div>
+</body>
+</html>
