@@ -46,8 +46,9 @@ body {
 Se le debe asignar el nombre del area nav que se creo dentro del contenedor principal.
 */
 .navbar {
-    background: lightpink;
     grid-area: nav;
+    /* background: lightpink; */
+    display: flex;
 }
 /* N5.2: Se utiliza flexbox para alinear el contenido del navbar uno al lado del otro. */
 .navbar__content {
@@ -94,6 +95,48 @@ Se le quita el padding que trae por defecto el navegador y se le agrega un tama�
     font-weight: 300;
     text-decoration: none;
 }
+
+/* N6.1: Se comienza a crear los estilos CSS de la sección principal. 
+Se le asigna el nombre de area section.
+Se utilizan las propiedades de flexbox para ordenar el texto en columna.
+*/
+.main-content {
+    grid-area: section;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px;
+
+    animation: 4s main-content 0.8s ease-in-out;
+}
+/* N6.3: Se utilizan pseudo-clases para indicar que la primera etiqueta <p> que sea hija de main-content tenga una fuente de tamaño 36 pixeles. */
+.main-content p:first-child {
+    font-size: 36px;
+    font-weight: 300;
+    margin: 0 0 -14px 44px;
+}
+/* N6.4: Se utilizan pseudo-clases para indicar que la ultima etiqueta <p> que sea hija de main-content tenga una fuente mas delgada. */
+.main-content p:last-child {
+    font-weight: 100;
+    margin: 0;
+    width: 60%;
+}
+.main-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 28px 0;
+}
+
+/* N6.2: Se crea una animación, para que el contenido principal base desde arriba hasta abajo. */
+@keyframes main-content {
+    0% {
+        transform: translateY(-600px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
 
 /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
 .loader {
