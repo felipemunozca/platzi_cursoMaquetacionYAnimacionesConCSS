@@ -137,6 +137,95 @@ Se utilizan las propiedades de flexbox para ordenar el texto en columna.
     }
 }
 
+/* N7.1: Se crean los estilos para el aside.
+Se utilizara un sistema de grilla, de 6 columnas las cuales tendrán todas el mismo ancho, es decir una fracción del tamaño completo.
+Se le debe agregar el nombre del area "aside".
+ */
+.side-content {
+    /* background: palegoldenrod; */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+
+    grid-area: aside;
+}
+/* N7.2: Estilos para el texto superman, cambiar la alineación y el tamaño. */
+.side-content p {
+    transform: rotate(-90deg);
+    font-size: 36px;
+
+    /* N7.3: Utilizando el sistema de grillas, puedo decirle al texto superman que espacios debe ocupar.
+    Lo primero sera indicar las filas; que empiece en la fila 1 y termine en la fila 2. 
+    Lo segundo sera indicar las columnas; que empiece en la columna 1 y termine en la columna 2.
+    */
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+
+    opacity: 0;
+
+    /* N7.5: Se define la animación, esta vez utilizando cada propiedad por separado, es lo mismo que solo hacerlo con la propiedad animation.
+    Se agrega el nombre de la animación.
+    La duración que tendrá que sera de 0.5 segundos.
+    El retraso que tendrá para que se ejecute luego del loader.
+    La aceleración.
+    Y forward para indicar que cuando termine la animación, se quede en el ultimo estado.
+    */
+    animation-name: side-content-text;
+    animation-duration: 0.5s;
+    animation-delay: 4.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+/* N7.4: Se crea la animación para el texto de Superman. 
+En un inicio la opacidad sera cero, es decir que no se vera y lo pasara a ser visible. */
+@keyframes side-content-text {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* N7.6: Cambiar el tamaño de la imagen de Superman para que ocupe el tamaño de
+la columna 2 hasta la seis.
+la fila de la 1 hasta la dos
+*/
+.side-content img {
+    width: 100%;
+    grid-column: 2 / 6;
+    grid-row: 1 / 2;
+
+    /* N7.8: Se define la animación en una sola linea. */
+    animation: 4.2s side-content-img 0.5s ease-in-out;
+}
+
+/* N7.7: Se crea la animación para mover la imagen de derecha a izquierda.
+Debe comenzar desde un valor positivo, ya que estará en el eje X bien a la derecha y debe volver a su posición en cero en el mismo eje.
+*/
+@keyframes side-content-img {
+    0% {
+        transform: translateX(600px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+/* N7.9: Se crean los estilos para dividir el contenido del aside.
+Se debe agregar color solo a la mitad del aside completo, por lo que seria desde la columna numero 4 hasta la 7.
+y desde la fila 1 hasta la 2.
+Para que el color aparezca SIEMPRE se le debe agregar un alto.
+ */
+.side-content div {
+    background: var(--yellow);
+
+    grid-column: 4 / 7;
+    grid-row: 1 / 2;
+
+    height: 100%;
+}
 
 /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
 .loader {
