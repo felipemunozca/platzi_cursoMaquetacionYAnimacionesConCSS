@@ -34,7 +34,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* N3.5: Se agrega una posición absoluta al contenedor del loader ademas de un valor de z-index 3 para que al cargar la pagina este sobre el contenedor "page". */
+            /* N3.5: Se agrega una posición absoluta al contenedor del loader ademas de un valor de z-index 3 para que al cargar la 
+                pagina este sobre el contenedor "page". */
             position: absolute;
             z-index: 3;
 
@@ -82,13 +83,15 @@
             transform: scale(0);
             /* N3.10: Se asigna la animación llamada scaling.
             Tendrá una duración de 4 segundos (COMO RECOMENDACIÓN: que la duración sea la misma que la utilizada en el loader).
-            Sera de tipo ease-in-out es decir, comenzará lentamente, será más rápido en el medio de la animación y luego terminará lentamente.
+            Sera de tipo ease-in-out es decir, comenzará lentamente, será más rápido en el medio de la animación y luego terminará 
+                lentamente.
             Y la animación se repetirá de forma infinita hasta que se acabe el tiempo de duración. 
             */
             animation: scaling 4s ease-in-out infinite;
         }
 
-        /* N3.11: Para animar uno a uno los círculos en vez de todos a la vez, se utiliza la propiedad nth-child para asignarle a cada hijo un tiempo en segundos en el que se debe ejecutar la animación. 
+        /* N3.11: Para animar uno a uno los círculos en vez de todos a la vez, se utiliza la propiedad nth-child para asignarle a 
+            cada hijo un tiempo en segundos en el que se debe ejecutar la animación. 
         Si no se hace de este modo, todos los círculos se animan al mismo tiempo. 
         */
         .loader div:nth-child(1) {

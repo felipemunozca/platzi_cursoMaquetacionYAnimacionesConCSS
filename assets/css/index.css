@@ -227,6 +227,71 @@ Para que el color aparezca SIEMPRE se le debe agregar un alto.
     height: 100%;
 }
 
+/* N8.1: Se crean los estilos para el footer de la pagina. */
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+    /* N8.2: Los elementos se alinearan de abajo hacia arriba. */
+    align-items: flex-end;
+    background: var(--yellow);
+    border-radius: 0 50px 0 0;
+
+    /* N8.5: Se debe agregar la posición inicial en el eje Y del footer que estará fuera de la pantalla y que luego con la animación se moverá hacia la posición cero. */
+    transform: translateY(100%);
+
+    /* N8.4: Se definen las propiedades de la animación. 
+    Se le agrega el nombre de las sección footer y el resto de los valores como veníamos trabajando.
+    */
+    animation-name: footer;
+    animation-duration: 0.5s;
+    animation-delay: 4.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+/* N8.3: Se crea la animación para que el footer aparezca de abajo hacia arriba. 
+
+*/
+@keyframes footer {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* N8.9: Se crean los estilos para el div que contiene la imagen. */
+.footer div {
+    background: var(--blue);
+    width: 130px;
+    height: 50%;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;
+}
+/* N8.6: Se crean los estilos para las imágenes que estarán dentro del footer. */
+.footer div img {
+    width: 160px;
+    position: absolute;
+    bottom: 30px;
+
+    /* N8.8: Cuando se quita el puntero del mouse de la imagen, da la sensación de la imagen se recarga porque el cambio es muy brusco, por lo que se debe agregar una animación para volver al tamaño y posición originales.
+    Una recomendación pensando en el UX es cambiar el tiempo de animación por uno un poco mayor, para crear un efecto como si la pagina estuviese descansando.
+     */
+    transform: translateY(0px) scale(1);
+    transition: transform 0.5s ease-in-out;
+}
+/* N8.7: Se crea una animación para cuando el puntero del mouse se coloque sobre imagen en el footer. 
+La imagen se moverá de abajo hacia arriba en el eje Y, por lo que el valor en pixeles debe ser negativo. Ademas se le agrega un scale para hacer crecer la imagen en 1.1 a su tamaño original.
+Finalmente se agrega una duración y el tipo de aceleración que tendrá.
+*/
+.footer div:hover img {
+    cursor: pointer;
+    transform: translateY(-20px) scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
 /* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
 .loader {
     background: pink;
@@ -313,15 +378,5 @@ Si no se hace de este modo, todos los círculos se animan al mismo tiempo.
     }
     50% {
         transform: scale(1);
-    }
-}
-
-/*** Ejemplo de animación hecho por un compañero. ***/
-@keyframes scaling2 {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(.2);
     }
 }
