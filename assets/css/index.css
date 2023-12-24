@@ -394,10 +394,22 @@ Si no se hace de este modo, todos los círculos se animan al mismo tiempo.
     display: grid;
     place-items: center;
 }
+/* N10.3: Se crean los estilos para diferenciar el contenido del modal de la sección con el mismo nombre. */
+.modal__content {
+    background: white;
+    width: 50%;
+    height: 50%;
+    display: grid;
+    place-items: center;
+}
+
 /* N9.4: Se crea una clase para ocultar toda la sección donde ira el modal. */
 .hidden {
-    display: none;
-    /* display: none !important; */
+    /* N10.5: En algunas situaciones, al agregar y quitar clases utilizando javascript no siempre funcionan de inmediato, por lo 
+        que se recomienda agregar la propiedad !important para hacer que la clase CSS sea mas importante.
+    Pero no olvidar que hay que tener cuidado con el tema de la especifidad y llenar el código de !important no es una buena practica.
+     */
+    display: none !important;
 }
 /* N9.6: Se crea una clase para hacer visible la sección del modal. */
 .visible {
