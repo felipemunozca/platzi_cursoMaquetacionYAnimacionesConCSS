@@ -402,6 +402,78 @@ Si no se hace de este modo, todos los círculos se animan al mismo tiempo.
     display: grid;
     place-items: center;
 }
+/* N11.5: Se le asignan estilos al contenedor del slider y se le asigna un tamaño menor al del contenedor principal. */
+.modal__content--slider {
+    width: 300px;
+    height: 200px;
+    /* N11.6: Se agrega la propiedad de preserve-3d para crear el efecto de ver las cards una detrás de la otra. */
+    transform-style: preserve-3d;
+}
+.cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.card {
+    background: var(--yellow);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /* N11.7: Se crea una transición para cuando aparece la card. */
+    transition: transform 0.5s ease;
+    cursor: pointer;
+    /* N11.8: Se centra el contenido utilizando grid. */
+    display: grid;
+    place-items: center;
+    width: 50%;
+    height: 100%;
+}
+/* N11.12: Ajustar el tamaño de la imagen para que no se salga del carrusel. */
+.card img {
+    width: 100%;
+}
+
+/* N11.9: Para crear el efecto de carrusel de forma manual, las imágenes se deben montar y colocar una al lado del otro.
+Cuando el input llamado radio-1 este chequeado, el hijo (~) que este dentro de cards y se llame card-1 estará al centro.
+El resto de eventos funciona igual, al posicionar una card seleccionada en el centro, es por eso que los números de las cards coinciden.
+Se agrega un aumento de escala para diferenciar la imagen del centro de las otras.
+Se agrega una opacidad de 1 para que la imagen sea mas visible.
+Se posiciona la imagen del centro por sobre las otras utilizando z-index.
+*/
+#radio-1:checked ~ .cards #card-1,
+#radio-2:checked ~ .cards #card-2,
+#radio-3:checked ~ .cards #card-3 {
+    transform: translateX(0) scale(1.05);
+    opacity: 1;
+    z-index: 1;
+}
+/* N11:10: El segundo grupo es para mover las cards adecuadas a la derecha, es por eso que la card seleccionada es un número mas que la card que esta chequeado.
+Cuando el input radio-1 este chequeado, el hijo card-2 se moverá un 40% hacia la derecha en el eje X y su escala sera menor.
+También su opacidad sera menor a 1 para crear el efecto de difuminado.
+Y su posición en z-index sera en cero para quedar debajo de la card en el centro.
+
+*/
+#radio-1:checked ~ .cards #card-2,
+#radio-2:checked ~ .cards #card-3,
+#radio-3:checked ~ .cards #card-1 {
+    transform: translateX(40%) scale(0.8);
+    opacity: 0.5;
+    z-index: 0;
+}
+/* N11:11: El ultimo grupo es para mover las cards adecuadas a la izquierda, es por eso que la card se reduce en uno con respecto a la card chequeada.
+Cuando el input radio-1 este chequeado, el hijo (~) card-3 se moverá un 40% hacia la izquierda en el eje X y su escala sera menor.
+También su opacidad sera menor a 1 para crear el efecto de difuminado.
+Y su posición en z-index sera en cero para quedar debajo de la card en el centro.
+*/
+#radio-1:checked ~ .cards #card-3,
+#radio-2:checked ~ .cards #card-1,
+#radio-3:checked ~ .cards #card-2 {
+    transform: translateX(-40%) scale(0.8);
+    opacity: 0.5;
+    z-index: 0;
+}
+
 
 /* N9.4: Se crea una clase para ocultar toda la sección donde ira el modal. */
 .hidden {
