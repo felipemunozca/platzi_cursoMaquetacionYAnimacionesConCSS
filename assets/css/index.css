@@ -1,40 +1,44 @@
-/* N4.2: Se importa la fuente Lato desde google fonts. */
+/**
+ * Lo primero sera definir algunas propiedades que se utilizaran como base del proyecto: 
+ * 1. Utilizar la fuente Lato, la cual se importara desde Google Fonts.
+ * 2. Se crearan variables personalizadas para definir los colores a utilizar dentro de la pagina.
+ * 3. La etiqueta <body> tendrá un alto del 100% del alto del dispositivo, un margen por defecto de cero, ademas de que se evitara que los elementos
+ *      se salgan de pantalla utilizando hidden.
+ */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
-
-/* N4.1: Se crean variables con los colores a utilizar. */
 :root {
     --yellow: #ffd602;
     --red: #d5040a;
     --blue: #036cb6;
 }
-
 body {
     height: 100vh;
     margin: 0;
-    /* N3.2: evitar que los elementos se salgan de la pantalla. */
     overflow: hidden;
     font-family: 'Lato', sans-serif;
-
 }
 
+/**
+ * Se asignan las dimensiones para la etiqueta <main> con la clase "page", la cual sera del 100% de ancho y el 100 del viewport height. Se le da
+        una posición relativa, para que el siguiente contenedor se posiciones sobre esta.
+ * La etiqueta <section> con la clase "container" tendrá una posición absoluta y un valor positivo en el eje z-index para posicionarse Sobre la 
+ *      etiqueta anterior. 
+ * Utilizando el sistema de grillas de grid, se crean dos columnas con distintos anchos. Ademas dentro de la grilla, se crearan tres filas, las
+ *      cuales también tendrán diferentes valores cada una.
+ * Una vez que el contenedor principal fue dividido en diferentes filas y columnas, se le pueden asignar nombres a estas areas. Los nombres pueden
+ *      ser cualquiera, pero se recomienda que sean explicativos de lo que tendrán dentro como contenido.
+ */
 .page {
-    /* N3.4: Se le agrega una posición relativa al contenedor de todo la pagina. */
     position: relative;
     height: 100vh;
     width: 100%;
 }
-
 .container {
     position: absolute;
     z-index: 1;
-
-    /* N4.3: Se crean dos columnas de distinto ancho utilizando grid. */
     display: grid;
     grid-template-columns: 55% 45%;
-    /* N4.4: Se crean tris filas de distinto tamaño. */
     grid-template-rows: 20% 50% 30%;
-    /* N4.5: Se crean nombres para las areas en las que se dividió el container. 
-    Los nombres pueden ser cualquiera, pero se recomienda que sean explicativos de lo que tendrán dentro como contenido. */
     grid-template-areas:    "nav     aside"
                             "section aside"
                             "footer  aside";
@@ -42,32 +46,44 @@ body {
     width: 100%;
 }
 
-/* N5.1: Se comienza a crear los estilos para la barra de navegación. 
-Se le debe asignar el nombre del area nav que se creo dentro del contenedor principal.
-*/
+/**
+ * Se le asignan estilos a la barra de navegación. Lo primero es utilizar el nombre del area que corresponde según fue definido dentro del
+ *      contenedor principal.
+ * Se utiliza flexbox para alinear el contenido de esta dentro del <div> con el contenido del navbar.
+ * Se crea una animación utilizando keyframes la que luego se llama desde la clase donde se desea utilizar. Existen dos formas de definir la
+ *      configuración de la animación, la simple donde se define todo en una sola linea, y la mas complicada donde se debe hacer todo por separado,
+ *      pero con ambas opciones se llegara al mismo resultado.
+ * La información que se debe definir para utilizar la animación es: 
+ *      - El nombre de la animación (Debe ser el mismo del keyframes).
+ *      - La demora en la ejecución en una cantidad de segundos luego de que la pagina inicia para ejecutar la animación.
+ *      - La duración de la animación.
+ *      - El tipo de aceleración.
+ * IMPORTANTE: no es necesario que este declarada toda esta información, tampoco es necesario utilizar el mismo orden, ya que el Compilador del
+ *      navegador entiende la idea y rellena las reglas que faltan con valores por defecto del navegador.
+ */
 .navbar {
     grid-area: nav;
     /* background: lightpink; */
     display: flex;
 }
-/* N5.2: Se utiliza flexbox para alinear el contenido del navbar uno al lado del otro. */
 .navbar__content {
     display: flex;
     align-items: center;
     width: 100%;
     padding: 0 0 0 80px;
 
-    /* N5.5: Se llama a la animación de la barra de navegación.
-    El primer valor es cuantos segundos después se debe ejecutar, en este caso 4 segundos después, para que coincida con el termino de la animación de loader.Tendrá una duración de 1 segundo.
-    Y la aceleración sera de tipo ease-in-out
-    */
-    animation: 4.2s navbar 1s ease-in-out;
+    animation: navbar 2.5s 1s ease-in-out;
+    /* animation-name: navbar; */
+    /* animation-delay: 2.5s; */
+    /* animation-duration: 1s; */
+    /* animation-timing-function: ease-in-out; */
 }
 
-/* N5.4: Se crea la animación para que la barra de navegación aparezca y se desplace de arriba hacia abajo.
-En el momento cero, la barra estará en el eje Y sobre el contenido.
-En el momento del estado final, volverá a la posición original.
-*/
+/**
+ * Se crea una animación para que la barra de navegación aparezca y se desplace de arriba hacia abajo en el eje Y.
+ * En el momento cero %, la barra estará en el eje Y sobre el contenido y no sera visible ya que el valor es negativo.
+ * En el momento del estado final, el 100%, volverá a la posición original.
+ */
 @keyframes navbar {
     0% {
         transform: translateY(-200px);
@@ -80,9 +96,6 @@ En el momento del estado final, volverá a la posición original.
 .navbar__content img {
     width: 50px;
 }
-/* N5.3: Se utiliza flexbox para darle estilo a las etiquetas dentro de la lista <ul>.
-Se le quita el padding que trae por defecto el navegador y se le agrega un tamaño al <div> para separar los enlaces del menu. 
-*/
 .navbar__content ul {
     display: flex;
     justify-content: space-evenly;
@@ -96,10 +109,14 @@ Se le quita el padding que trae por defecto el navegador y se le agrega un tama�
     text-decoration: none;
 }
 
-/* N6.1: Se comienza a crear los estilos CSS de la sección principal. 
-Se le asigna el nombre de area section.
-Se utilizan las propiedades de flexbox para ordenar el texto en columna.
-*/
+/**
+ * Se le asignan estilos a la sección principal. Lo primero es utilizar el nombre del area que corresponde según fue definido dentro del 
+ *      contenedor principal.
+ * Se utiliza flexbox para ordenar el contenido de la sección en una columna.
+ * Se crea una animación utilizando keyframes, para que el contenido de la sección principal aparezca y se desplace de arriba hacia abajo en el eje Y.
+ * La animación se llamara main-content, se ejecutara 3 segundos después de cargue la pagina, tendrá una duración de 0.8 segundos y su aceleración
+ *      sera de tipo ease-in-out, es decir, comenzará lentamente, será más rápido en el medio de la animación y luego terminará lentamente.
+ */
 .main-content {
     grid-area: section;
     display: flex;
@@ -107,15 +124,28 @@ Se utilizan las propiedades de flexbox para ordenar el texto en columna.
     justify-content: center;
     padding-left: 80px;
 
-    animation: 4s main-content 0.8s ease-in-out;
+    animation: main-content 3s 0.8s ease-in-out;
 }
-/* N6.3: Se utilizan pseudo-clases para indicar que la primera etiqueta <p> que sea hija de main-content tenga una fuente de tamaño 36 pixeles. */
+@keyframes main-content {
+    0% {
+        transform: translateY(-600px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/**
+ * Se asignan estilos a etiquetas a partir de pseudo-clases.
+ * La primera etiqueta <p> que sea hija de la clase "main-content" tendrá una fuente de 36 pixeles y un margen de cero desde arriba y derecha,
+ *      de -14 px desde abajo y de 44px desde izquierda.
+ * La ultima etiqueta <p> que sea hija de la clase "main-content" tendrá una fuente mas delgada y un ancho acotado.
+ */
 .main-content p:first-child {
     font-size: 36px;
     font-weight: 300;
     margin: 0 0 -14px 44px;
 }
-/* N6.4: Se utilizan pseudo-clases para indicar que la ultima etiqueta <p> que sea hija de main-content tenga una fuente mas delgada. */
 .main-content p:last-child {
     font-weight: 100;
     margin: 0;
@@ -127,58 +157,41 @@ Se utilizan las propiedades de flexbox para ordenar el texto en columna.
     margin: 0 0 28px 0;
 }
 
-/* N6.2: Se crea una animación, para que el contenido principal base desde arriba hasta abajo. */
-@keyframes main-content {
-    0% {
-        transform: translateY(-600px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
-/* N7.1: Se crean los estilos para el aside.
-Se utilizara un sistema de grilla, de 6 columnas las cuales tendrán todas el mismo ancho, es decir una fracción del tamaño completo.
-Se le debe agregar el nombre del area "aside".
+/**
+ * Se le asignan estilos a la sección aside. Lo primero es utilizar el nombre del area que corresponde según fue definido dentro del contenedor
+ *      principal.
+ * Se utiliza grid para crear una nueva grilla, esta vez de 6 columnas, las cuales tendrán el mismo ancho entre ellas, es decir, una fracción del
+ *      tamaño completo.
+ * Se utiliza la propiedad transform para girar el texto de "SUPERMAN" en 90 grados.
+ * Ya que el texto "SUPERMAN" esta dentro de las 6 columnas de aside, se le puede asignar que posiciones ocupar: 
+ *      - Que empiece en la fila 1 y que termine en la fila 2.
+ *      - Que empiece en la columna 1 y que termine en la columna 2.
+ * La opacidad por defecto sera de cero, ya que el texto estará oculto.
+ * Se crea una animación utilizando keyframes, para que el texto "SUPERMAN" sea visible.
+ * La animación se llamara side-content-text, se ejecutara 3.5 segundos después de cargue la pagina, tendrá una duración de 0.5 segundos, su aceleración
+ *      sera de tipo ease-in-out y se agrega la propiedad de modo de relleno de la animación la cual sera de tipo forward lo que significa que cuando
+ *      la animación termine, se quedará con los valores y estilos que se aplicaron en el último keyframe de la ejecución de la animación.
  */
 .side-content {
+    grid-area: aside;
     /* background: palegoldenrod; */
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     align-items: center;
-
-    grid-area: aside;
 }
-/* N7.2: Estilos para el texto superman, cambiar la alineación y el tamaño. */
 .side-content p {
     transform: rotate(-90deg);
     font-size: 36px;
-
-    /* N7.3: Utilizando el sistema de grillas, puedo decirle al texto superman que espacios debe ocupar.
-    Lo primero sera indicar las filas; que empiece en la fila 1 y termine en la fila 2. 
-    Lo segundo sera indicar las columnas; que empiece en la columna 1 y termine en la columna 2.
-    */
     grid-row: 1 / 2;
     grid-column: 1 / 2;
-
     opacity: 0;
 
-    /* N7.5: Se define la animación, esta vez utilizando cada propiedad por separado, es lo mismo que solo hacerlo con la propiedad animation.
-    Se agrega el nombre de la animación.
-    La duración que tendrá que sera de 0.5 segundos.
-    El retraso que tendrá para que se ejecute luego del loader.
-    La aceleración.
-    Y forward para indicar que cuando termine la animación, se quede en el ultimo estado.
-    */
     animation-name: side-content-text;
+    animation-delay: 3.5s;
     animation-duration: 0.5s;
-    animation-delay: 4.5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
-
-/* N7.4: Se crea la animación para el texto de Superman. 
-En un inicio la opacidad sera cero, es decir que no se vera y lo pasara a ser visible. */
 @keyframes side-content-text {
     0% {
         opacity: 0;
@@ -188,22 +201,22 @@ En un inicio la opacidad sera cero, es decir que no se vera y lo pasara a ser vi
     }
 }
 
-/* N7.6: Cambiar el tamaño de la imagen de Superman para que ocupe el tamaño de
-la columna 2 hasta la seis.
-la fila de la 1 hasta la dos
-*/
+/**
+ * Ya que la imagen de "SUPERMAN" esta dentro de las 6 columnas de aside, se le puede asignar que posiciones ocupar: 
+ *      - Que empiece en la fila 1 y que termine en la fila 2.
+ *      - Que empiece en la columna 2 y que termine en la columna 6. (las columnas totales son 7)
+ * Se crea una animación utilizando keyframes, para que la imagen de "SUPERMAN" se mueva de derecha a izquierda. Debe comenzar desde un valor positivo
+ *      ya que estará en el eje X, bien a la derecha y debe volver a la posición cero en el mismo eje.
+ * La animación se llamara side-content-img, se ejecutara 4 segundos después de cargue la pagina, tendrá una duración de 0.5 segundos, su aceleración
+ *      sera de tipo ease-in-out.
+ */
 .side-content img {
     width: 100%;
     grid-column: 2 / 6;
     grid-row: 1 / 2;
 
-    /* N7.8: Se define la animación en una sola linea. */
-    animation: 4.2s side-content-img 0.5s ease-in-out;
+    animation: side-content-img 4s 0.5s ease-in-out;
 }
-
-/* N7.7: Se crea la animación para mover la imagen de derecha a izquierda.
-Debe comenzar desde un valor positivo, ya que estará en el eje X bien a la derecha y debe volver a su posición en cero en el mismo eje.
-*/
 @keyframes side-content-img {
     0% {
         transform: translateX(600px);
@@ -213,46 +226,46 @@ Debe comenzar desde un valor positivo, ya que estará en el eje X bien a la dere
     }
 }
 
-/* N7.9: Se crean los estilos para dividir el contenido del aside.
-Se debe agregar color solo a la mitad del aside completo, por lo que seria desde la columna numero 4 hasta la 7.
-y desde la fila 1 hasta la 2.
-Para que el color aparezca SIEMPRE se le debe agregar un alto.
+/**
+ * Dentro de la sección aside, se agrega un <div> para dividir el contenido utilizando una columna de color.
+ * El <div> ocupara los espacios desde la columna 4 hasta la columna 7 y desde la fila 1 hasta la fila 2.
+ * IMPORTANTE: Para que el color se vea, siempre se le debe agregar un alto al elemento.
  */
 .side-content div {
+    height: 100%;
     background: var(--yellow);
 
     grid-column: 4 / 7;
     grid-row: 1 / 2;
-
-    height: 100%;
 }
 
-/* N8.1: Se crean los estilos para el footer de la pagina. */
+/**
+ * Se le asignan estilos a la sección footer. Lo primero es utilizar el nombre del area que corresponde según fue definido dentro del contenedor
+ *      principal.
+ * Se utiliza flexbox para organizar el contenido, en este caso, los elementos se alinearan de abajo hacia arriba.
+ * Se crea una animación utilizando keyframes, para que el footer aparezca de abajo hacia arriba.
+ * La animación se llamara footer-content, se ejecutara 4 segundos después de cargue la pagina, tendrá una duración de 0.5 segundos, su aceleración
+ *      sera de tipo ease-in-out y el modo de relleno de la animación la cual sera de tipo forward.
+ * IMPORTANTE: ya que la idea es que el footer no se vea hasta que cargue la animación, se debe agregar su posición inicial en el eje Y, el cual
+ *      seria fuera de la pantalla (100%), este sera su valor por defecto.
+ */
 .footer {
+    grid-area: footer;
     display: flex;
     justify-content: space-evenly;
-    /* N8.2: Los elementos se alinearan de abajo hacia arriba. */
     align-items: flex-end;
     background: var(--yellow);
     border-radius: 0 50px 0 0;
 
-    /* N8.5: Se debe agregar la posición inicial en el eje Y del footer que estará fuera de la pantalla y que luego con la animación se moverá hacia la posición cero. */
-    transform: translateY(100%);
-
-    /* N8.4: Se definen las propiedades de la animación. 
-    Se le agrega el nombre de las sección footer y el resto de los valores como veníamos trabajando.
-    */
-    animation-name: footer;
+    animation-name: footer-content;
     animation-duration: 0.5s;
-    animation-delay: 4.5s;
+    animation-delay: 4s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
+
+    transform: translateY(100%);
 }
-
-/* N8.3: Se crea la animación para que el footer aparezca de abajo hacia arriba. 
-
-*/
-@keyframes footer {
+@keyframes footer-content {
     0% {
         transform: translateY(100%);
     }
@@ -261,7 +274,6 @@ Para que el color aparezca SIEMPRE se le debe agregar un alto.
     }
 }
 
-/* N8.9: Se crean los estilos para el div que contiene la imagen. */
 .footer div {
     background: var(--blue);
     width: 130px;
@@ -270,54 +282,55 @@ Para que el color aparezca SIEMPRE se le debe agregar un alto.
     display: flex;
     justify-content: center;
 }
-/* N8.6: Se crean los estilos para las imágenes que estarán dentro del footer. */
+
+/**
+ * Se crea una animación para el momento en que el puntero del mouse se coloque sobre imagen en el footer utilizando la pseudo clase :hover.
+ * La imagen se moverá desde abajo hacia arriba en el eje Y, por lo que el valor en pixeles debe ser negativo. Ademas se le agrega una escala mayor
+ *      a 1 para hacer crecer la imagen. Finalmente se agrega una duración en segundos y el tipo de aceleración que se utilizara.
+ * IMPORTANTE: Cuando se quita el puntero del mouse de la imagen, da la sensación de la imagen se recarga porque el cambio de tamaño es muy brusco,
+ *      por lo que se debe agregar una animación para volver al tamaño y posición originales dentro de la clase original (la que no tiene el hover).
+ * RECOMENDACIÓN: pensando en el diseña UX, al volver la imagen a su tamaño original se recomiendo cambiar el tiempo de la animación por uno un poco
+        mayor, para crear un efecto como si la pagina estuviese descansando.
+ */
 .footer div img {
     width: 160px;
     position: absolute;
     bottom: 30px;
 
-    /* N8.8: Cuando se quita el puntero del mouse de la imagen, da la sensación de la imagen se recarga porque el cambio es muy brusco, por lo que se debe agregar una animación para volver al tamaño y posición originales.
-    Una recomendación pensando en el UX es cambiar el tiempo de animación por uno un poco mayor, para crear un efecto como si la pagina estuviese descansando.
-     */
     transform: translateY(0px) scale(1);
     transition: transform 0.5s ease-in-out;
 }
-/* N8.7: Se crea una animación para cuando el puntero del mouse se coloque sobre imagen en el footer. 
-La imagen se moverá de abajo hacia arriba en el eje Y, por lo que el valor en pixeles debe ser negativo. Ademas se le agrega un scale para hacer crecer la imagen en 1.1 a su tamaño original.
-Finalmente se agrega una duración y el tipo de aceleración que tendrá.
-*/
 .footer div:hover img {
     cursor: pointer;
+
     transform: translateY(-20px) scale(1.1);
     transition: transform 0.3s ease-in-out;
 }
 
-/* N3.1: Lo primero sera crear los estilos para el loader de la pagina que sera lo primero que vera el usuario. */
+/**
+ * La pantalla del loader sera lo primero que cargara al entrar en la pagina y deberá ocupar el tamaño completo de la pantalla.
+ * Se utiliza flexbox para alinear el contenido (los puntos de carga) en el centro.
+ * Se le asigna una posición absoluta al loader ademas de un valor de z-index mayor a cualquier otro utilizado antes para que quede sobre todo el
+ *      contenido de la pagina.
+ * Se crea una animación utilizando keyframes, para hacer visible y luego desaparecer. Los tiempos de manipulación serán 3 momentos:
+ *      - En el punto 0% la opacidad del fondo blanco sera de 1 y la visibilidad sera visible.
+ *      - En el punto 95% las condiciones se mantienen iguales.
+ *      - En el punto 100% casi al final, el fondo blanco desaparece, no tendrá opacidad y se ocultara.
+ * La animación se llamara loader, tendrá una duración de 2 segundos, su aceleración sera de tipo lineal y el modo de relleno de la animación la
+ *      cual sera de tipo forward, es decir, el loader quedara con los valores y estilos del ultimo keyframe de la animación.
+ */
 .loader {
-    background: pink;
     width: 100%;
     height: 100%;
-    /* N3.3: Centrar los elementos utilizando flexbox. */
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* N3.5: Se agrega una posición absoluta al contenedor del loader ademas de un valor de z-index 3 para que al cargar la pagina este sobre el contenedor "page". */
     position: absolute;
     z-index: 3;
 
-    /* N3.7: Se asigna la animación que cree llamada loader.
-    Tendrá una duración de 4 segundos.
-    Sera de tipo lineal.
-    Y el contenedor quedará con los valores y estilos que le aplique el último keyframe de la ejecución de la animación. */
-    animation: loader 4s linear forwards;
+    animation: loader 2s linear forwards;
 }
-
-/* N3.6: Se crea un keyframe donde se definirá la animación para hacer aparecer y desaparecer el fondo de color rosa.
-Los tiempos de manipulación serán 3 momentos: 
-En el punto 0% la opacidad sera de 1 y la visibilidad sera visible.
-En el punto 95% las condiciones se mantienen iguales.
-En el punto 100% casi al final, hacemos que el circulo desaparezca, que no tenga opacidad y se oculte.
-*/
 @keyframes loader {
     0% {
         opacity: 1;
@@ -333,42 +346,29 @@ En el punto 100% casi al final, hacemos que el circulo desaparezca, que no tenga
     }
 }
 
-/* N3.8: Se crean los estilos para los círculos que aparecerán en la pantalla de carga. 
-Se le debe agregar un color.
-Un tamaño de alto y ancho que sean iguales.
-Un radio del 50% para que quede redondo.
-Un margen para esperar los diferentes círculos.
-*/
+/**
+ * Se crean los círculos que aparecerán en la pantalla de carga. Se utilizaran etiquetas <div> para crear los círculos.
+ * Se les asigna un alto y ancho que sean iguales, ademas de un radio del 50% para que tengan una forma circular.
+ * Se crea una animación utilizando keyframes, para agrandar y achicar los círculos aumentando y disminuyendo su escala.
+ * La animación se llamara scaling, tendrá una duración de 2 segundos, su aceleración sera de tipo ease-in-out ya que asi el circulo comenzara a 
+ *      crecer lentamente, luego acelerara al llegar a la mitad y al final terminara lentamente. Ademas se repetirá de forma infinita hasta que se
+ *      acabe el tiempo de duración.
+ * IMPORTANTE: ya que esta animación se ejecuta junto al loader, se recomienda que tengan la misma duración.
+ * IMPORTANTE: se debe agregar un valor de escala que tendrán los div por defecto, ya que crecerán de pequeños a grandes, el valor de partida sera de cero.
+ * Se utiliza la pseudo clase nth-child para lograr animar los círculos de uno en uno y no todos a la vez. Se le asigna a cada hijo un tiempo en
+ *      segundos en el que comenzara a ejecutar la animación. Para crear el efecto, los tres tiempos deben ser distintos.
+ */
 .loader div {
-    background: white;
+    background: var(--yellow);
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin: 10px;
 
+    animation: scaling 2s ease-in-out infinite;
+
     transform: scale(0);
-    /* N3.10: Se asigna la animación llamada scaling.
-    Tendrá una duración de 4 segundos (COMO RECOMENDACIÓN: que la duración sea la misma que la utilizada en el loader).
-    Sera de tipo ease-in-out es decir, comenzará lentamente, será más rápido en el medio de la animación y luego terminará lentamente.
-    Y la animación se repetirá de forma infinita hasta que se acabe el tiempo de duración. 
-    */
-    animation: scaling 4s ease-in-out infinite;
 }
-
-/* N3.11: Para animar uno a uno los círculos en vez de todos a la vez, se utiliza la propiedad nth-child para asignarle a cada hijo un tiempo en segundos en el que se debe ejecutar la animación. 
-Si no se hace de este modo, todos los círculos se animan al mismo tiempo. 
-*/
-.loader div:nth-child(1) {
-    animation-delay: 0.2s;
-}
-.loader div:nth-child(2) {
-    animation-delay: 0.4s;
-}
-.loader div:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-/* N3.9: Se crea la animación para agrandar y achicar los círculos aumentando y disminuyendo la escala. */
 @keyframes scaling {
     0%, 100% {
         transform: scale(0.2);
@@ -380,67 +380,87 @@ Si no se hace de este modo, todos los círculos se animan al mismo tiempo.
         transform: scale(1);
     }
 }
+.loader div:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.loader div:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.loader div:nth-child(3) {
+    animation-delay: 0.6s;
+}
 
-/* N9.1: Se crean los estilos para el modal de spider-man. Debe cubrir toda la pantalla. */
+
+/**
+ * Se crean los estilos para el modal.
+ * Tendrá un ancho y alto de la pantalla completa, asi como una sombra para diferenciarlo del contenido de la pagina principal.
+ * Se le asigna una posición absoluta al modal, ademas de un valor de z-index de 4 para que quede sobre todo el contenido.
+ * Se le asignan estilos al <div> donde estará el contenido del modal, tendrá un alto y ancho del 50% de la pagina y estará posicionado en el centro.
+ * Dentro del modal, se crea un slider, el cual tendrá un alto y ancho definidos ademas de la propiedad de preserve-3d para crear el efecto de ver
+ *      las cards una detrás de la otra.
+ */
 .modal {
     width: 100%;
     height: 100%;
-    /* N9.2: Se le agrega una sombra al contenedor principal. */
     background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    /* N9.3: Utilizando z-index, se coloca el modal sobre el contenido de la pagina. */
-    z-index: 4;
-
     display: grid;
     place-items: center;
+    position: absolute;
+    z-index: 4;
 }
-/* N10.3: Se crean los estilos para diferenciar el contenido del modal de la sección con el mismo nombre. */
 .modal__content {
     background: white;
     width: 50%;
     height: 50%;
     display: grid;
     place-items: center;
+    border-radius: 5px;
 }
-/* N11.5: Se le asignan estilos al contenedor del slider y se le asigna un tamaño menor al del contenedor principal. */
 .modal__content--slider {
     width: 300px;
     height: 200px;
-    /* N11.6: Se agrega la propiedad de preserve-3d para crear el efecto de ver las cards una detrás de la otra. */
     transform-style: preserve-3d;
 }
+
+/**
+ * Se crean los estilos para las cards.
+ * Cada card tendrá un ancho del 50% y el alto de un 100% de su contenedor.
+ * Se utiliza grid para centrar el contenido.
+ * Se agrega una transición para animar cuando aparece la card o cuando se cambia a otra card.
+ * Se ajusta el tamaño de las imágenes al 100% del ancho para que no se salga del contenedor del modal.
+ */
 .cards {
-    position: relative;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 .card {
+    width: 50%;
+    height: 100%;
     background: var(--yellow);
+    display: grid;
+    place-items: center;
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
-    /* N11.7: Se crea una transición para cuando aparece la card. */
     transition: transform 0.5s ease;
     cursor: pointer;
-    /* N11.8: Se centra el contenido utilizando grid. */
-    display: grid;
-    place-items: center;
-    width: 50%;
-    height: 100%;
 }
-/* N11.12: Ajustar el tamaño de la imagen para que no se salga del carrusel. */
 .card img {
     width: 100%;
 }
 
-/* N11.9: Para crear el efecto de carrusel de forma manual, las imágenes se deben montar y colocar una al lado del otro.
-Cuando el input llamado radio-1 este chequeado, el hijo (~) que este dentro de cards y se llame card-1 estará al centro.
-El resto de eventos funciona igual, al posicionar una card seleccionada en el centro, es por eso que los números de las cards coinciden.
-Se agrega un aumento de escala para diferenciar la imagen del centro de las otras.
-Se agrega una opacidad de 1 para que la imagen sea mas visible.
-Se posiciona la imagen del centro por sobre las otras utilizando z-index.
-*/
+/**
+ * Para crear el efecto de carrusel de forma manual, las imágenes se deben montar y colocar una a cada lado.
+ * Si el input #radio-1 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-1 estará al centro.
+ * Si el input #radio-2 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-2 estará al centro.
+ * Si el input #radio-3 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-3 estará al centro.
+ * Si la condición se cumple: 
+ *      - Se mantiene la posición en el eje X y se aumenta la escala de la imagen que se encuentra en el centro.
+ *      - Se le da una opacidad de 1.
+ *      - Se utiliza z-index para posicionar la imagen del centro sobre las otras.
+ */
 #radio-1:checked ~ .cards #card-1,
 #radio-2:checked ~ .cards #card-2,
 #radio-3:checked ~ .cards #card-3 {
@@ -448,12 +468,17 @@ Se posiciona la imagen del centro por sobre las otras utilizando z-index.
     opacity: 1;
     z-index: 1;
 }
-/* N11:10: El segundo grupo es para mover las cards adecuadas a la derecha, es por eso que la card seleccionada es un número mas que la card que esta chequeado.
-Cuando el input radio-1 este chequeado, el hijo card-2 se moverá un 40% hacia la derecha en el eje X y su escala sera menor.
-También su opacidad sera menor a 1 para crear el efecto de difuminado.
-Y su posición en z-index sera en cero para quedar debajo de la card en el centro.
 
-*/
+/**
+ * El segundo grupo es para mover las cards hacia la derecha.
+ * Si el input #radio-1 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-2 estará a la derecha.
+ * Si el input #radio-2 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-3 estará a la derecha.
+ * Si el input #radio-3 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-1 estará a la derecha.
+ * Si la condición se cumple: 
+ *      - Se cambia la posición al 40% en el eje X a la derecha y se disminuye la escala de la imagen.
+ *      - Se le da una opacidad de 0.5.
+ *      - Se utiliza z-index para posicionar la imagen debajo de las otras.
+ */
 #radio-1:checked ~ .cards #card-2,
 #radio-2:checked ~ .cards #card-3,
 #radio-3:checked ~ .cards #card-1 {
@@ -461,11 +486,17 @@ Y su posición en z-index sera en cero para quedar debajo de la card en el centr
     opacity: 0.5;
     z-index: 0;
 }
-/* N11:11: El ultimo grupo es para mover las cards adecuadas a la izquierda, es por eso que la card se reduce en uno con respecto a la card chequeada.
-Cuando el input radio-1 este chequeado, el hijo (~) card-3 se moverá un 40% hacia la izquierda en el eje X y su escala sera menor.
-También su opacidad sera menor a 1 para crear el efecto de difuminado.
-Y su posición en z-index sera en cero para quedar debajo de la card en el centro.
-*/
+
+/**
+ * El segundo grupo es para mover las cards hacia la izquierda.
+ * Si el input #radio-1 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-3 estará a la izquierda.
+ * Si el input #radio-2 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-1 estará a la izquierda.
+ * Si el input #radio-3 este chequeado, el hijo (~) que este dentro del <div> cards y se llame #card-2 estará a la izquierda.
+ * Si la condición se cumple: 
+ *      - Se cambia la posición al -40% en el eje X a la izquierda y se disminuye la escala de la imagen.
+ *      - Se le da una opacidad de 0.5.
+ *      - Se utiliza z-index para posicionar la imagen debajo de las otras.
+ */
 #radio-1:checked ~ .cards #card-3,
 #radio-2:checked ~ .cards #card-1,
 #radio-3:checked ~ .cards #card-2 {
@@ -474,16 +505,50 @@ Y su posición en z-index sera en cero para quedar debajo de la card en el centr
     z-index: 0;
 }
 
-
-/* N9.4: Se crea una clase para ocultar toda la sección donde ira el modal. */
+/**
+ * Se crean dos clases especiales para ocultar y mostrar el modal, estas clases se ejecutaran utilizando código JavaScript.
+ * IMPORTANTE: en algunas situaciones, al agregar y quitar clases CSS utilizando JavaScript, puede darse el caso en que no funcione el cambio de 
+ *      inmediato, por lo que se recomienda utilizar la propiedad "!important" para hacer saber al compilador del navegador que esta clase es mas
+ *      importante que otras. Pero no olvidar, que hay que tener cuidado con el uso de !important debido a la especificidad de los selectores CSS
+ *      y ademas llenar el código con esta propiedad no es una buena practica.
+ */
 .hidden {
-    /* N10.5: En algunas situaciones, al agregar y quitar clases utilizando javascript no siempre funcionan de inmediato, por lo 
-        que se recomienda agregar la propiedad !important para hacer que la clase CSS sea mas importante.
-    Pero no olvidar que hay que tener cuidado con el tema de la especifidad y llenar el código de !important no es una buena practica.
-     */
     display: none !important;
 }
-/* N9.6: Se crea una clase para hacer visible la sección del modal. */
 .visible {
     display: grid !important;
+}
+
+/**
+ * DESAFÍOS.
+ * Hacer que el botón de cerrar el modal se posicione a la derecha.
+ * Hacer que los botones del input radio estén ocultos.
+ * Agregar un botón con los estilos del Figma que diga "Lo quiero!".
+ */
+.modal__content--close {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.modal__content--slider input {
+    visibility: hidden;
+}
+.modal__content--button {
+    width: 200px;
+    background: var(--red);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    transform: scale(1);
+    transition: transform 0.5s ease-in-out;
+}
+.modal__content--button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
 }

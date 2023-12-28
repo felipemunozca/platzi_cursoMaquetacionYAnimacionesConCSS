@@ -7,7 +7,7 @@
     <title>Curso de maquetación y animaciones con CSS</title>
 </head>
 <body>
-    <div class="page">
+    <main class="page">
         <section class="container">
             <nav class="navbar">
                 <div class="navbar__content">
@@ -32,13 +32,13 @@
                 <!-- <div></div> -->
             </section>
             <section class="footer">
-                <div id="button1">
+                <div id="button-Spider">
                     <img src="https://i.ibb.co/tKWqw8J/spiderman.png" alt="spiderman">
                 </div>
-                <div>
+                <div id="button-Robin">
                     <img src="https://i.ibb.co/Xzsdvgg/robin.png" alt="robin">
                 </div>
-                <div>
+                <div id="button-Batman">
                     <img src="https://i.ibb.co/M18p91c/batman.webp" alt="batman">
                 </div>
             </section>
@@ -50,14 +50,17 @@
             <div></div>
         </section>
 
-        <section class="modal hidden">
+        <section class="modal hidden" id="modal-product">
             <div class="modal__content">
-                <img class="modal__content--close" src="https://img.icons8.com/windows/32/000000/macos-close.png" />
+                <div class="modal__content--close">
+                    <img id="icon-close" class="" src="https://img.icons8.com/windows/32/000000/macos-close.png" />
+                </div>
                 <div class="modal__content--slider">
                     <input type="radio" name="slider-1" id="radio-1" checked>
                     <input type="radio" name="slider-1" id="radio-2">
                     <input type="radio" name="slider-1" id="radio-3">
-                    <div class="cards">
+                    <div class="cards" id="cards-image">
+                        <!-- 
                         <label for="radio-1" id="card-1" class="card">
                             <img src="./assets/img/spider-1.png" alt>
                         </label>
@@ -66,29 +69,15 @@
                         </label>
                         <label for="radio-3" id="card-3" class="card">
                             <img src="./assets/img/spider-3.png" alt>
-                        </label>
+                        </label> 
+                        -->
                     </div>
                 </div>
+                <button class="modal__content--button">Lo quiero!</button>
             </div>
         </section>
-    </div>
+    </main>
 
-    <script>
-        const modal = document.querySelector('.modal');
-        const button1 = document.querySelector('#button1');
-        const closeButton = document.querySelector('.modal__content--close');
-
-        button1.addEventListener('click', () => {
-            console.log("Se presiona el botón de spider-man");
-            modal.classList.remove('hidden');
-            modal.classList.add('visible');
-        });
-
-        closeButton.addEventListener('click', () => {
-            console.log('Se cierra el modal')
-            modal.classList.add('hidden');
-            modal.classList.remove('visible');
-        });
-    </script>
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>
